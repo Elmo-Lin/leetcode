@@ -14,26 +14,26 @@ struct TreeNode {
 
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> res;
         if(root==NULL){
-            return 0;
+            return res;
         }
-        int depth=0;
         queue<TreeNode*> q{{root}};       // BFS 模板題
         while(!q.empty()){
             int size=q.size();
+            res.push_back(q.front()->val);
             for(int i=0; i<size; i++){
                 TreeNode* cur=q.front();
                 q.pop();
-                if(cur->left){
-                    q.push(cur->left);
-                }
                 if(cur->right){
                     q.push(cur->right);
                 }
+                if(cur->left){
+                    q.push(cur->left);
+                }
             }
-            depth++;
         }
-        return depth;
+        return res;
     }
 };

@@ -14,17 +14,19 @@ struct TreeNode {
 
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
+    vector<vector<int>> levelOrder(TreeNode* root) {
         if(root==NULL){
-            return 0;
+            return {};
         }
-        int depth=0;
-        queue<TreeNode*> q{{root}};       // BFS 模板題
+        vector<vector<int>> res;
+        queue<TreeNode*> q{{root}}; 
         while(!q.empty()){
+            vector<int> level;
             int size=q.size();
             for(int i=0; i<size; i++){
                 TreeNode* cur=q.front();
                 q.pop();
+                level.push_back(cur->val);
                 if(cur->left){
                     q.push(cur->left);
                 }
@@ -32,8 +34,8 @@ public:
                     q.push(cur->right);
                 }
             }
-            depth++;
+            res.push_back(level);
         }
-        return depth;
+        return res;
     }
 };
